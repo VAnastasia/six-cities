@@ -5,13 +5,13 @@ type TabProps = {
 }
 
 function Tab({ city, isActive, onClick }: TabProps): JSX.Element {
-  const clickhandler = () => {
+  const clickHandler = () => {
     onClick(city);
   };
 
   return (
     <li className='locations__item' key={city}>
-      <a className={isActive ? 'locations__item-link tabs__item tabs__item--active' : 'locations__item-link tabs__item'} href="#" onClick={clickhandler}>
+      <a className={isActive ? 'locations__item-link tabs__item tabs__item--active' : 'locations__item-link tabs__item'} href="#" onClick={clickHandler}>
         <span>{city}</span>
       </a>
     </li>
