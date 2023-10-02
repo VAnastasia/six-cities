@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { SortTypes } from '../../const';
+import { SortType } from '../../const';
 
 type SortProps = {
-  currentSortType: SortTypes;
-  onChangeCurrentSortType: (type: SortTypes) => void;
+  currentSortType: SortType;
+  onChangeCurrentSortType: (type: SortType) => void;
 }
 
 function Sort({currentSortType, onChangeCurrentSortType }: SortProps): JSX.Element {
@@ -13,7 +13,7 @@ function Sort({currentSortType, onChangeCurrentSortType }: SortProps): JSX.Eleme
     setIsOpen(!isOpen);
   };
 
-  const onChangeSortType = (type: SortTypes) => {
+  const onChangeSortType = (type: SortType) => {
     onChangeCurrentSortType(type);
     setIsOpen(false);
   };
@@ -34,7 +34,7 @@ function Sort({currentSortType, onChangeCurrentSortType }: SortProps): JSX.Eleme
       <ul
         className={isOpen ? 'places__options places__options--custom places__options--opened' : ' places__options places__options--custom'}
       >
-        {Object.values(SortTypes).map((type) => (
+        {Object.values(SortType).map((type) => (
           <li
             key={type}
             className={type === currentSortType ? 'places__option places__option--active' : 'places__option'}

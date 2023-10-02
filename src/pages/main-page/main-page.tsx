@@ -1,41 +1,41 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import OfferCard from '../../components/offer-card/offer-card';
 import Header from '../../components/header/header';
 import Tabs from '../../components/tabs/tabs';
 import Sort from '../../components/sort/sort';
 import { Offer } from '../../types/offer';
-import { SortTypes } from '../../const';
+import { SortType, Store, CityMap } from '../../const';
 import { useSortedFiltredOffers } from '../../hooks/use-sorted-filtred-offers';
+import Map from '../../components/map/map';
+import { useAppSelector, useAppDispatch } from '../../hooks';
+import { fetchOffersAction } from '../../store/api-actions';
+import { setSelectedOffer } from '../../store/offers/offers';
 
-const DEFAULT_CITY = 'Paris';
+function MainPage(): JSX.Element {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchOffersAction());
+  }, [dispatch]);
 
-type MainPageProps = {
-  offers: Offer[];
-}
+  useEffect(() => {
+    dispatch(setSelectedOffer(null));
+  }, [dispatch]);
 
-function MainPage({ offers }: MainPageProps): JSX.Element {
-  const [activeCity, setActiveCity] = useState(DEFAULT_CITY);
-  const [currentSortType, setCurrentSortType] = useState(SortTypes.Popular);
+  const activeCity = useAppSelector((state) => state[Store.Offers].activeCity);
+  const offers = useAppSelector((state) => state[Store.Offers].offers);
+  const [currentSortType, setCurrentSortType] = useState(SortType.Popular);
 
-  const offersBySortAndCity: Offer[] = useSortedFiltredOffers(offers, currentSortType, activeCity);
-
-  const onChangeActiveTab = (city: string) => {
-    setActiveCity(city);
-  };
-
-  const onChangeCurrentSortType = (sortType: SortTypes) => {
+  const onChangeCurrentSortType = (sortType: SortType) => {
     setCurrentSortType(sortType);
   };
 
+  const offersBySortAndCity: Offer[] = useSortedFiltredOffers(offers, currentSortType, activeCity);
   return (
     <div className="page page--gray page--main">
       <Header />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <Tabs
-          activeCity={activeCity}
-          onChangeActiveTab={onChangeActiveTab}
-        />
+        <Tabs />
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
@@ -55,7 +55,7 @@ function MainPage({ offers }: MainPageProps): JSX.Element {
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map" />
+              <Map offers={offersBySortAndCity} city={CityMap[activeCity]} />
             </div>
           </div>
         </div>

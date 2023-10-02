@@ -1,6 +1,27 @@
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import Header from '../../components/header/header';
+import {
+  fetchDetailsOfferAction,
+  fetchCommentsAction,
+  fetchOfferNearbyAction,
+  fetchFavoritesAction
+} from '../../store/api-actions';
+import { useAppSelector, useAppDispatch } from '../../hooks';
 
 function OfferPage(): JSX.Element {
+  const {id: offerId} = useParams();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if(offerId) {
+      dispatch(fetchDetailsOfferAction(offerId));
+      dispatch(fetchCommentsAction(offerId));
+      dispatch(fetchOfferNearbyAction(offerId));
+      dispatch(fetchFavoritesAction());
+    }
+  }, [dispatch, offerId]);
+
   return (
     <div className="page">
       <Header />

@@ -1,26 +1,15 @@
-import { CITIES } from '../../const';
+import { CityMap, City } from '../../const';
 import Tab from '../tab/tab';
 
-type TabsProps = {
-  activeCity: string;
-  onChangeActiveTab: (tab: string) => void;
-}
-
-function Tabs({ activeCity, onChangeActiveTab }: TabsProps): JSX.Element {
-  const onClickTab = (tab: string) => {
-    onChangeActiveTab(tab);
-  };
-
+function Tabs(): JSX.Element {
   return (
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list">
-          {CITIES.map((city) => (
+          {Object.keys(CityMap).map((city) => (
             <Tab
               key={city}
-              city={city}
-              onClick={onClickTab}
-              isActive={activeCity === city}
+              city={city as City}
             />
           ))}
         </ul>

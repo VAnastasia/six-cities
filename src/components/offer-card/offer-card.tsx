@@ -1,20 +1,29 @@
+import { Link } from 'react-router-dom';
 import { Offer } from '../../types/offer';
+import { useAppDispatch } from '../../hooks';
+import { setSelectedOffer } from '../../store/offers/offers';
+import { AppRoute } from '../../const';
 
 type OfferProps = {
   offer: Offer;
 }
 
 function OfferCard({ offer }: OfferProps): JSX.Element {
-  const { previewImage, type, title, rating, price, isPremium, isFavorite } = offer;
+  const { id, previewImage, type, title, rating, price, isPremium, isFavorite } = offer;
+  const dispatch = useAppDispatch();
 
   return (
-    <article className="cities__card place-card">
+    <article
+      className="cities__card place-card"
+      onMouseOver={() => dispatch(setSelectedOffer(id))}
+      onMouseLeave={() => dispatch(setSelectedOffer(null))}
+    >
       {isPremium &&
-      <div className="place-card__mark">
-        <span>Premium</span>
-      </div>}
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div>}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <Link to={`${AppRoute.Offer}${id}`}>
           <img
             className="place-card__image"
             src={previewImage}
@@ -22,7 +31,7 @@ function OfferCard({ offer }: OfferProps): JSX.Element {
             height={200}
             alt="Place image"
           />
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
