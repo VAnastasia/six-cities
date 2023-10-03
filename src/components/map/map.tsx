@@ -4,10 +4,9 @@ import { Offer, City } from '../../types/offer';
 import 'leaflet/dist/leaflet.css';
 import { Icon, Marker, layerGroup } from 'leaflet';
 import { MapSettings, ResourcePath } from '../../const';
-// import classNames from 'classnames';
-// import { getOfferSelected } from '../../store/cities-process/selectors';
 import { useAppSelector } from '../../hooks';
 import { getSelectedOffer } from '../../store/offers/selectors';
+import { getDetails } from '../../store/details/selectors';
 
 type MapProps = {
   offers: Offer[];
@@ -31,6 +30,8 @@ function Map({ city, offers }: MapProps): JSX.Element {
   const map = useMap(refMap, city);
 
   const selectedOfferId = useAppSelector(getSelectedOffer);
+  const detailsOffer = useAppSelector(getDetails);
+
 
   useEffect(() => {
     if (map) {
@@ -44,7 +45,7 @@ function Map({ city, offers }: MapProps): JSX.Element {
 
         marker
           .setIcon(
-            !!selectedOfferId && id === selectedOfferId
+            (!!selectedOfferId && id === selectedOfferId) || (detailsOffer && id === detailsOffer.id)
               ? getCurrentCustomIcon()
               : getDefaultCustomIcon()
           )
@@ -55,10 +56,10 @@ function Map({ city, offers }: MapProps): JSX.Element {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers, selectedOfferId]);
+  }, [map, offers, selectedOfferId, detailsOffer]);
 
   return (
-    <section ref={refMap} className='map' style={{width: '100%'}}></section>
+    <section ref={refMap} className='map' style={{width: '100%', height: '100%'}}></section>
   );
 }
 

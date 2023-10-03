@@ -14,7 +14,7 @@ const initialState: FavoritesState = {
 };
 
 export const favoritesStore = createSlice({
-  name: Store.Offers,
+  name: Store.Favorites,
   initialState,
   reducers: {},
   extraReducers(builder) {

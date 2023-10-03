@@ -22,6 +22,8 @@ export const getFetchingStatus = (state: Pick<State, Store.Offers>) => state[Sto
 export const getActiveCity = (state: Pick<State, Store.Offers>) => state[Store.Offers].activeCity;
 export const getSelectedOffer = (state: Pick<State, Store.Offers>) => state[Store.Offers].selectedOffer;
 export const getSortType = (state: Pick<State, Store.Offers>) => state[Store.Offers].sortType;
+export const getOffersNearby = (state: Pick<State, Store.Offers>) => state[Store.Offers].offersNearby.slice(0, 3);
+
 export const getOffersByFilterSort = createSelector(
   [getOffers, getSortType, getActiveCity],
   (offers, activeSort, activeCity) => sortFilterOffers(offers, activeSort, activeCity)

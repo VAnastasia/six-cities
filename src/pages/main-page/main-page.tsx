@@ -8,6 +8,7 @@ import { Store, CityMap, OfferCardType } from '../../const';
 import Map from '../../components/map/map';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { setSelectedOffer } from '../../store/offers/offers';
+import { resetDetailsOffer } from '../../store/details/details';
 import { getOffersByFilterSort } from '../../store/offers/selectors';
 
 function MainPage(): JSX.Element {
@@ -17,6 +18,7 @@ function MainPage(): JSX.Element {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(setSelectedOffer(null));
+    dispatch(resetDetailsOffer());
   }, [dispatch]);
 
   return (

@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Offer } from '../../types/offer';
 import { City, Store, RequestStatus, SortType } from '../../const';
-import { fetchOffersAction } from '../api-actions';
+import { fetchOfferNearbyAction, fetchOffersAction } from '../api-actions';
 
 export type OffersState = {
   offers: Offer[];
+  offersNearby: Offer[];
   activeCity: City;
   selectedOffer?: Offer['id'] | null;
   sortType: SortType;
@@ -13,6 +14,7 @@ export type OffersState = {
 
 const initialState: OffersState = {
   offers: [],
+  offersNearby: [],
   activeCity: City.Paris,
   selectedOffer: null,
   sortType: SortType.Popular,
@@ -32,6 +34,7 @@ export const offersStore = createSlice({
     setSortType(state, action: PayloadAction<SortType>) {
       state.sortType = action.payload;
     },
+
   },
   extraReducers(builder) {
     builder
@@ -44,6 +47,13 @@ export const offersStore = createSlice({
       })
       .addCase(fetchOffersAction.rejected, (state) => {
         state.fetchingStatus = RequestStatus.Error;
+      })
+      .addCase(fetchOfferNearbyAction.fulfilled, (state, action) => {
+        state.fetchingStatus = RequestStatus.Success;
+        state.offersNearby = action.payload;
+      })
+      .addCase(fetchOfferNearbyAction.rejected, (state) => {
+        state.offersNearby = [];
       });
   },
 });
