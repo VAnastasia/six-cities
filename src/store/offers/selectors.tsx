@@ -5,3 +5,5 @@ export const getOffers = (state: Pick<State, Store.Offers>) => state[Store.Offer
 export const getFetchingStatus = (state: Pick<State, Store.Offers>) => state[Store.Offers].fetchingStatus;
 export const getActiveCity = (state: Pick<State, Store.Offers>) => state[Store.Offers].activeCity;
 export const getSelectedOffer = (state: Pick<State, Store.Offers>) => state[Store.Offers].selectedOffer;
+export const getSortType = (state: Pick<State, Store.Offers>) => state[Store.Offers].sortType;
+

@@ -28,6 +28,9 @@ export const offersStore = createSlice({
     },
     setSelectedOffer(state, action: PayloadAction<Offer['id'] | null>) {
       state.selectedOffer = action.payload;
+    },
+    setSortType(state, action: PayloadAction<SortType>) {
+      state.sortType = action.payload;
     }
   },
   extraReducers(builder) {
@@ -45,4 +48,4 @@ export const offersStore = createSlice({
   },
 });
 
-export const { setActiveCity, setSelectedOffer } = offersStore.actions;
+export const { setActiveCity, setSelectedOffer, setSortType } = offersStore.actions;

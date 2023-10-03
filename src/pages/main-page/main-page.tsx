@@ -1,17 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import OfferCard from '../../components/offer-card/offer-card';
 import Header from '../../components/header/header';
 import Tabs from '../../components/tabs/tabs';
 import Sort from '../../components/sort/sort';
 import { Offer } from '../../types/offer';
-import { SortType, Store, CityMap } from '../../const';
+import { Store, CityMap } from '../../const';
 import { useSortedFiltredOffers } from '../../hooks/use-sorted-filtred-offers';
 import Map from '../../components/map/map';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { fetchOffersAction } from '../../store/api-actions';
 import { setSelectedOffer } from '../../store/offers/offers';
+import { getSortType } from '../../store/offers/selectors';
 
 function MainPage(): JSX.Element {
+  const sortType = useAppSelector(getSortType);
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchOffersAction());
@@ -23,13 +25,8 @@ function MainPage(): JSX.Element {
 
   const activeCity = useAppSelector((state) => state[Store.Offers].activeCity);
   const offers = useAppSelector((state) => state[Store.Offers].offers);
-  const [currentSortType, setCurrentSortType] = useState(SortType.Popular);
 
-  const onChangeCurrentSortType = (sortType: SortType) => {
-    setCurrentSortType(sortType);
-  };
-
-  const offersBySortAndCity: Offer[] = useSortedFiltredOffers(offers, currentSortType, activeCity);
+  const offersBySortAndCity: Offer[] = useSortedFiltredOffers(offers, sortType, activeCity);
   return (
     <div className="page page--gray page--main">
       <Header />
@@ -41,10 +38,7 @@ function MainPage(): JSX.Element {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offersBySortAndCity.length} places to stay in {activeCity}</b>
-              <Sort
-                currentSortType={currentSortType}
-                onChangeCurrentSortType={onChangeCurrentSortType}
-              />
+              <Sort />
               <div className="cities__places-list places__list tabs__content">
                 {offersBySortAndCity.map((offer) => (
                   <OfferCard
