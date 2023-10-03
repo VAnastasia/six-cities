@@ -122,3 +122,8 @@ export enum RequestStatus {
   Success = 'success',
   Error = 'error'
 }
+
+export enum OfferCardType {
+  Cities = 'cities',
+  Favorites = 'favorites'
+}

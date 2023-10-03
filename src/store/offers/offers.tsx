@@ -4,7 +4,7 @@ import { City, Store, RequestStatus, SortType } from '../../const';
 import { fetchOffersAction } from '../api-actions';
 
 export type OffersState = {
-  offers?: Offer[];
+  offers: Offer[];
   activeCity: City;
   selectedOffer?: Offer['id'] | null;
   sortType: SortType;
@@ -31,7 +31,7 @@ export const offersStore = createSlice({
     },
     setSortType(state, action: PayloadAction<SortType>) {
       state.sortType = action.payload;
-    }
+    },
   },
   extraReducers(builder) {
     builder

@@ -4,29 +4,21 @@ import Header from '../../components/header/header';
 import Tabs from '../../components/tabs/tabs';
 import Sort from '../../components/sort/sort';
 import { Offer } from '../../types/offer';
-import { Store, CityMap } from '../../const';
-import { useSortedFiltredOffers } from '../../hooks/use-sorted-filtred-offers';
+import { Store, CityMap, OfferCardType } from '../../const';
 import Map from '../../components/map/map';
 import { useAppSelector, useAppDispatch } from '../../hooks';
-import { fetchOffersAction } from '../../store/api-actions';
 import { setSelectedOffer } from '../../store/offers/offers';
-import { getSortType } from '../../store/offers/selectors';
+import { getOffersByFilterSort } from '../../store/offers/selectors';
 
 function MainPage(): JSX.Element {
-  const sortType = useAppSelector(getSortType);
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(fetchOffersAction());
-  }, [dispatch]);
+  const activeCity = useAppSelector((state) => state[Store.Offers].activeCity);
+  const offersBySortAndCity: Offer[] = useAppSelector(getOffersByFilterSort);
 
+  const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(setSelectedOffer(null));
   }, [dispatch]);
 
-  const activeCity = useAppSelector((state) => state[Store.Offers].activeCity);
-  const offers = useAppSelector((state) => state[Store.Offers].offers);
-
-  const offersBySortAndCity: Offer[] = useSortedFiltredOffers(offers, sortType, activeCity);
   return (
     <div className="page page--gray page--main">
       <Header />
@@ -44,6 +36,7 @@ function MainPage(): JSX.Element {
                   <OfferCard
                     key={offer.id}
                     offer={offer}
+                    cardType={OfferCardType.Cities}
                   />
                 ))}
               </div>
