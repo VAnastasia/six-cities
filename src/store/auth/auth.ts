@@ -12,7 +12,7 @@ type AuthState = {
 const initialState: AuthState = {
   user: null,
   authorizationStatus: AuthorizationStatus.Unknown,
-  fetchingStatus: RequestStatus.Init
+  fetchingStatus: RequestStatus.Init,
 };
 
 export const authStore = createSlice({
