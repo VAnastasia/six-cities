@@ -38,7 +38,9 @@ function Header(): JSX.Element {
                   to={AppRoute.Favorites}
                   className="header__nav-link header__nav-link--profile"
                 >
-                  <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+                  <div className="header__avatar-wrapper user__avatar-wrapper">
+                    <img src={currentUser.avatarUrl} alt={currentUser.name} />
+                  </div>
                   <span className="header__user-name user__name">
                     {currentUser?.email}
                   </span>

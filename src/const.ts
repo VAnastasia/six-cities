@@ -125,5 +125,6 @@ export enum RequestStatus {
 
 export enum OfferCardType {
   Cities = 'cities',
-  Favorites = 'favorites'
+  Favorites = 'favorites',
+  Nearby = 'near-places'
 }

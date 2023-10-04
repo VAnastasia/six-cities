@@ -1,14 +1,30 @@
-import { CityMap } from '../../const';
-import { useAppSelector } from '../../hooks';
-import { getDetails } from '../../store/details/selectors';
-import { getActiveCity, getOffersNearby } from '../../store/offers/selectors';
+import cn from 'classnames';
 import Comments from '../comments/comments';
 import Map from '../map/map';
+import { AppRoute, CityMap } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getDetails } from '../../store/details/selectors';
+import { getActiveCity, getOffersNearby } from '../../store/offers/selectors';
+import { getUser } from '../../store/auth/selectors';
+import { statusFavoriteAction } from '../../store/api-actions';
+import { useNavigate } from 'react-router-dom';
 
 function DetailsOffer(): JSX.Element {
+  const navigate = useNavigate();
   const details = useAppSelector(getDetails);
   const activeCity = useAppSelector(getActiveCity);
   const offersNearby = useAppSelector(getOffersNearby);
+  const currentUser = useAppSelector(getUser);
+  const dispatch = useAppDispatch();
+
+  const onBookmarkClick = () => {
+    if (currentUser && details) {
+      const favoriteStatus = !details.isFavorite;
+      dispatch(statusFavoriteAction({ ...details, isFavorite: favoriteStatus }));
+    } else {
+      navigate(AppRoute.Login);
+    }
+  };
 
   return (
     <section className="offer">
@@ -35,7 +51,15 @@ function DetailsOffer(): JSX.Element {
             <h1 className="offer__name">
               {details?.title}
             </h1>
-            <button className="offer__bookmark-button button" type="button">
+            <button
+              className={cn(
+                'offer__bookmark-button',
+                'button',
+                {'offer__bookmark-button--active': details?.isFavorite}
+              )}
+              type="button"
+              onClick={onBookmarkClick}
+            >
               <svg className="offer__bookmark-icon" width={31} height={33}>
                 <use xlinkHref="#icon-bookmark" />
               </svg>
@@ -55,7 +79,7 @@ function DetailsOffer(): JSX.Element {
               {details?.bedrooms} Bedrooms
             </li>
             <li className="offer__feature offer__feature--adults">
-                  Max {details?.maxAdults} adults
+              Max {details?.maxAdults} adults
             </li>
           </ul>
           <div className="offer__price">
