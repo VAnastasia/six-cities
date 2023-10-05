@@ -93,8 +93,8 @@ export enum SortType {
 }
 
 export enum ResourcePath {
-  Pin = '/img/pin.svg',
-  PinActive = '/img/pin-active.svg'
+  Pin = '/six-cities/img/pin.svg',
+  PinActive = '/six-cities/img/pin-active.svg'
 }
 
 export enum MapSettings {
