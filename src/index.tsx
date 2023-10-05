@@ -17,7 +17,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <HelmetProvider>
-        <HistoryRouter history={browserHistory} basename='/six-cities'>
+        <HistoryRouter history={browserHistory} basename={import.meta.env.BASE_URL}>
           <ToastContainer />
           <App />
         </HistoryRouter>
