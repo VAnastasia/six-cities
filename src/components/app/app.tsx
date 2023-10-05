@@ -1,5 +1,4 @@
-import { Route, BrowserRouter, Routes } from 'react-router-dom';
-import { HelmetProvider } from 'react-helmet-async';
+import { Route, Routes } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import MainPage from '../../pages/main-page/main-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
@@ -22,42 +21,38 @@ function App(): JSX.Element {
   }, [dispatch]);
 
   return (
-    <HelmetProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path={AppRoute.Main}
-            element={
-              <MainPage />
-            }
-          />
-          <Route
-            path={AppRoute.Favorites}
-            element={
-              <PrivateRoute authorizationStatus={authorizationStatus}>
-                <FavoritesPage/>
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path={AppRoute.Offer}
-          >
-            <Route
-              path=':id'
-              element={<OfferPage />}
-            />
-          </Route>
-          <Route
-            path={AppRoute.Login}
-            element={<LoginPage/>}
-          />
-          <Route
-            path="*"
-            element={<NotFoundPage />}
-          />
-        </Routes>
-      </BrowserRouter>
-    </HelmetProvider>
+    <Routes>
+      <Route
+        path={AppRoute.Main}
+        element={
+          <MainPage />
+        }
+      />
+      <Route
+        path={AppRoute.Favorites}
+        element={
+          <PrivateRoute authorizationStatus={authorizationStatus}>
+            <FavoritesPage/>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path={AppRoute.Offer}
+      >
+        <Route
+          path=':id'
+          element={<OfferPage />}
+        />
+      </Route>
+      <Route
+        path={AppRoute.Login}
+        element={<LoginPage/>}
+      />
+      <Route
+        path="*"
+        element={<NotFoundPage />}
+      />
+    </Routes>
   );
 }
 
