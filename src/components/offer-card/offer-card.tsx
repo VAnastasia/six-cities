@@ -1,3 +1,4 @@
+import { useCallback, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import cn from 'classnames';
 import { Offer } from '../../types/offer';
@@ -15,35 +16,38 @@ type OfferProps = {
 
 function OfferCard({ offer, cardType = OfferCardType.Cities }: OfferProps): JSX.Element {
   const { id, previewImage, type, title, rating, price, isPremium , isFavorite} = offer;
+  const [favoriteStatus, setFavoriteStatus] = useState(isFavorite);
 
   const currentUser = useAppSelector(getUser);
   const dispatch = useAppDispatch();
-  const bookmarkClassName = isFavorite
-    ? 'place-card__bookmark-button place-card__bookmark-button--active button'
-    : 'place-card__bookmark-button button';
-
   const navigate = useNavigate();
 
-  const onBookmarkClick = () => {
+  const onBookmarkClick = useCallback(() => {
     if (currentUser) {
-      const favoriteStatus = !offer.isFavorite;
-      dispatch(statusFavoriteAction({ ...offer, isFavorite: favoriteStatus }));
+      const newStatus = !favoriteStatus;
+      dispatch(statusFavoriteAction({ ...offer, isFavorite: newStatus }))
+        .then((res) => {
+          if (res.type === 'data/statusFavorite/fulfilled') {
+            setFavoriteStatus(newStatus);
+          }
+        });
+
     } else {
       navigate(AppRoute.Login);
     }
-  };
+  }, [dispatch, currentUser, favoriteStatus, navigate, offer]);
 
-  const onMouseOver = () => {
+  const onMouseOver = useCallback(() => {
     if (cardType === OfferCardType.Cities) {
       dispatch(setSelectedOffer(id));
     }
-  };
+  }, [cardType, id, dispatch]);
 
-  const onMouseLeave = () => {
+  const onMouseLeave = useCallback(() => {
     if (cardType === OfferCardType.Cities) {
       dispatch(setSelectedOffer(null));
     }
-  };
+  }, [cardType, dispatch]);
 
   return (
     <article
@@ -73,7 +77,9 @@ function OfferCard({ offer, cardType = OfferCardType.Cities }: OfferProps): JSX.
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
           <button
-            className={bookmarkClassName}
+            className={cn('place-card__bookmark-button button', {
+              'place-card__bookmark-button place-card__bookmark-button--active button': !!favoriteStatus
+            })}
             type="button"
             onClick={onBookmarkClick}
           >

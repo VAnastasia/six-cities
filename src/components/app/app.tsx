@@ -14,6 +14,7 @@ import { useEffect } from 'react';
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
+
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchOffersAction());

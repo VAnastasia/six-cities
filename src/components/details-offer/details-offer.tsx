@@ -8,6 +8,7 @@ import { getActiveCity, getOffersNearby } from '../../store/offers/selectors';
 import { getUser } from '../../store/auth/selectors';
 import { statusFavoriteAction } from '../../store/api-actions';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 function DetailsOffer(): JSX.Element {
   const navigate = useNavigate();
@@ -28,6 +29,11 @@ function DetailsOffer(): JSX.Element {
 
   return (
     <section className="offer">
+      <Helmet>
+        <title>
+          {details?.title}
+        </title>
+      </Helmet>
       <div className="offer__gallery-container container">
         <div className="offer__gallery">
           {details?.images?.map((image) => (

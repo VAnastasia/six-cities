@@ -72,7 +72,7 @@ export const statusFavoriteAction = createAsyncThunk<Offer, Offer, Params>(
   async ({ id, isFavorite }, {dispatch, extra: api}) => {
     const { data } = await api.post<Offer>(`${APIRoute.Favorite}/${id}/${Number(isFavorite)}`);
     dispatch(fetchFavoritesAction());
-    dispatch(fetchOffersAction());
+    // dispatch(fetchOffersAction());
     dispatch(fetchDetailsOfferAction(id));
     return data;
   }

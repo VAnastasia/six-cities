@@ -3,17 +3,19 @@ import { useParams } from 'react-router-dom';
 import Header from '../../components/header/header';
 import DetailsOffer from '../../components/details-offer/details-offer';
 import NearPlaces from '../../components/near-places/near-places';
-
+import Loader from '../../components/loader/loader';
 import {
   fetchDetailsOfferAction,
   fetchCommentsAction,
   fetchOfferNearbyAction,
-  fetchFavoritesAction
 } from '../../store/api-actions';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getFetchingStatus } from '../../store/details/selectors';
+import { RequestStatus } from '../../const';
 
 function OfferPage(): JSX.Element {
   const {id: offerId} = useParams();
+  const isLoading = useAppSelector(getFetchingStatus) === RequestStatus.Pending;
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -21,17 +23,22 @@ function OfferPage(): JSX.Element {
       dispatch(fetchDetailsOfferAction(offerId));
       dispatch(fetchCommentsAction(offerId));
       dispatch(fetchOfferNearbyAction(offerId));
-      dispatch(fetchFavoritesAction());
     }
   }, [dispatch, offerId]);
 
   return (
     <div className="page">
-      <Header />
-      <main className="page__main page__main--offer">
-        <DetailsOffer />
-        <NearPlaces />
-      </main>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <Header />
+          <main className="page__main page__main--offer">
+            <DetailsOffer />
+            <NearPlaces />
+          </main>
+        </>
+      )}
     </div>
   );
 }

@@ -15,6 +15,8 @@ const getFavoritesByCity = (favorites: Offer[]) => favorites.reduce<{[key: strin
 }, {});
 
 export const getFavorites = (state: Pick<State, Store.Favorites>) => state[Store.Favorites].favorites;
+export const getFetchingStatus = (state: Pick<State, Store.Favorites>) => state[Store.Favorites].fetchingStatus;
+
 export const getFavoritesByCities = createSelector(
   [getFavorites],
   (favorites) => getFavoritesByCity(favorites)

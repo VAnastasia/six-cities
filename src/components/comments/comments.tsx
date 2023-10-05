@@ -1,11 +1,13 @@
 import { useAppSelector } from '../../hooks';
 import { getComments } from '../../store/comments/selectors';
+import { getUser } from '../../store/auth/selectors';
 import CommentsForm from '../comments-form/comments-form';
 
 const formatDate = (date: string) => `${new Date(date).toLocaleString('en-US', { month: 'long' })} ${new Date(date).getFullYear() }`;
 
 function Comments(): JSX.Element {
   const comments = useAppSelector(getComments);
+  const currentUser = useAppSelector(getUser);
 
   return (
     <section className="offer__reviews reviews">
@@ -46,7 +48,9 @@ function Comments(): JSX.Element {
           </li>
         ))}
       </ul>
-      <CommentsForm />
+      {!!currentUser && (
+        <CommentsForm />
+      )}
     </section>
   );
 }

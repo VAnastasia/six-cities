@@ -5,6 +5,7 @@ import { useAppSelector } from '../../hooks';
 import { getUser } from '../../store/auth/selectors';
 import { useEffect } from 'react';
 import { AppRoute } from '../../const';
+import { Helmet } from 'react-helmet-async';
 
 function LoginPage(): JSX.Element {
   const navigate = useNavigate();
@@ -31,7 +32,9 @@ function LoginPage(): JSX.Element {
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
-            <h1 className="login__title">Sign in</h1>
+            <Helmet>
+              <title>Sign in</title>
+            </Helmet>
             <LoginForm />
           </section>
           <section className="locations locations--login locations--current">

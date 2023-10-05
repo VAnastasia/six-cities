@@ -10,7 +10,7 @@ export type FavoritesState = {
 
 const initialState: FavoritesState = {
   favorites: [],
-  fetchingStatus: RequestStatus.Init
+  fetchingStatus: RequestStatus.Init,
 };
 
 export const favoritesStore = createSlice({
@@ -30,13 +30,8 @@ export const favoritesStore = createSlice({
         state.favorites = [];
         state.fetchingStatus = RequestStatus.Error;
       })
-      .addCase(statusFavoriteAction.fulfilled, (state, action) => {
-        const { isFavorite } = action.payload;
-        if (isFavorite) {
-          state.favorites.push(action.payload);
-        } else {
-          state.favorites = state.favorites.filter(({id}) => id === action.payload.id);
-        }
+      .addCase(statusFavoriteAction.fulfilled, (state) => {
+        state.fetchingStatus = RequestStatus.Success;
       });
   },
 });

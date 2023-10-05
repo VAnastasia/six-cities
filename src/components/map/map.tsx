@@ -1,8 +1,9 @@
 import { memo, useEffect, useRef } from 'react';
-import {useMap} from '../../hooks/use-map';
-import { Offer, City } from '../../types/offer';
-import 'leaflet/dist/leaflet.css';
+import { useParams } from 'react-router-dom';
 import { Icon, Marker, layerGroup } from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+import { useMap } from '../../hooks/use-map';
+import { Offer, City } from '../../types/offer';
 import { MapSettings, ResourcePath } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { getSelectedOffer } from '../../store/offers/selectors';
@@ -28,10 +29,10 @@ const getCurrentCustomIcon = (): Icon => new Icon({
 function Map({ city, offers }: MapProps): JSX.Element {
   const refMap = useRef<HTMLElement | null>(null);
   const map = useMap(refMap, city);
+  const {id: offerId} = useParams();
 
   const selectedOfferId = useAppSelector(getSelectedOffer);
   const detailsOffer = useAppSelector(getDetails);
-
 
   useEffect(() => {
     if (map) {
@@ -45,7 +46,7 @@ function Map({ city, offers }: MapProps): JSX.Element {
 
         marker
           .setIcon(
-            (!!selectedOfferId && id === selectedOfferId) || (detailsOffer && id === detailsOffer.id)
+            (!!selectedOfferId && id === selectedOfferId) || (offerId && detailsOffer && id === detailsOffer.id)
               ? getCurrentCustomIcon()
               : getDefaultCustomIcon()
           )
@@ -56,7 +57,7 @@ function Map({ city, offers }: MapProps): JSX.Element {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers, selectedOfferId, detailsOffer]);
+  }, [map, offers, selectedOfferId, detailsOffer, offerId]);
 
   return (
     <section ref={refMap} className='map' style={{width: '100%', height: '100%'}}></section>

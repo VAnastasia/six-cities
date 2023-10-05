@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import { useState } from 'react';
 import { SortType } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -32,7 +33,7 @@ function Sort(): JSX.Element {
         </svg>
       </span>
       <ul
-        className={isOpen ? 'places__options places__options--custom places__options--opened' : ' places__options places__options--custom'}
+        className={cn('places__options places__options--custom', {'places__options places__options--custom places__options--opened': isOpen})}
       >
         {Object.values(SortType).map((type) => (
           <li

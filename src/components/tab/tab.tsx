@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import { City } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setActiveCity } from '../../store/offers/offers';
@@ -18,7 +19,11 @@ function Tab({ city }: TabProps): JSX.Element {
 
   return (
     <li className='locations__item' key={city}>
-      <a className={activeCity === city ? 'locations__item-link tabs__item tabs__item--active' : 'locations__item-link tabs__item'} href="#" onClick={clickHandler}>
+      <a
+        className={cn('locations__item-link tabs__item', {'tabs__item--active': activeCity === city })}
+        href="#"
+        onClick={clickHandler}
+      >
         <span>{city}</span>
       </a>
     </li>

@@ -1,20 +1,17 @@
 import { useEffect } from 'react';
-import OfferCard from '../../components/offer-card/offer-card';
+import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
 import Tabs from '../../components/tabs/tabs';
-import Sort from '../../components/sort/sort';
-import { Offer } from '../../types/offer';
-import { Store, CityMap, OfferCardType } from '../../const';
-import Map from '../../components/map/map';
-import { useAppSelector, useAppDispatch } from '../../hooks';
+import OfferList from '../../components/offer-list/offer-list';
+import Loader from '../../components/loader/loader';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setSelectedOffer } from '../../store/offers/offers';
 import { resetDetailsOffer } from '../../store/details/details';
-import { getOffersByFilterSort } from '../../store/offers/selectors';
+import { getFetchingStatus } from '../../store/offers/selectors';
+import { RequestStatus } from '../../const';
 
 function MainPage(): JSX.Element {
-  const activeCity = useAppSelector((state) => state[Store.Offers].activeCity);
-  const offersBySortAndCity: Offer[] = useAppSelector(getOffersByFilterSort);
-
+  const isLoading = useAppSelector(getFetchingStatus) === RequestStatus.Pending;
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(setSelectedOffer(null));
@@ -23,32 +20,20 @@ function MainPage(): JSX.Element {
 
   return (
     <div className="page page--gray page--main">
-      <Header />
-      <main className="page__main page__main--index">
-        <h1 className="visually-hidden">Cities</h1>
-        <Tabs />
-        <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offersBySortAndCity.length} places to stay in {activeCity}</b>
-              <Sort />
-              <div className="cities__places-list places__list tabs__content">
-                {offersBySortAndCity.map((offer) => (
-                  <OfferCard
-                    key={offer.id}
-                    offer={offer}
-                    cardType={OfferCardType.Cities}
-                  />
-                ))}
-              </div>
-            </section>
-            <div className="cities__right-section">
-              <Map offers={offersBySortAndCity} city={CityMap[activeCity]} />
-            </div>
-          </div>
-        </div>
-      </main>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <Header />
+          <main className="page__main page__main--index">
+            <Helmet>
+              <title>Cities</title>
+            </Helmet>
+            <Tabs />
+            <OfferList />
+          </main>
+        </>
+      )}
     </div>
   );
 }
