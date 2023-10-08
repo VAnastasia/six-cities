@@ -35,7 +35,7 @@ function DetailsOffer(): JSX.Element {
           {details?.title}
         </title>
       </Helmet>
-      <div className={cn('offer__gallery-container container', styles.container)}>
+      <div className={cn('offer__gallery-container container', styles.container, styles.galleryWrapper)}>
         <div className={cn('offer__gallery', styles.gallery)}>
           {details?.images?.map((image) => (
             <div className="offer__image-wrapper" key={image}>

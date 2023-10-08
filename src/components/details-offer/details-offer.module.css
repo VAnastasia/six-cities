@@ -22,11 +22,15 @@
 
 @media(max-width: 768px) {
   .container {
-    overflow: hidden;
-    overflow-x: auto;
     padding: 0;
     margin-bottom: 24px;
   }
+
+  .galleryWrapper {
+    overflow: hidden;
+    overflow-x: auto;
+  }
+
   .gallery {
     width: 1600px;
     max-height: 200px;

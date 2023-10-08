@@ -5,6 +5,7 @@
 @media(max-width: 1200px) {
   .container {
     max-width: 80%;
+    padding: 0;
   }
 }
 

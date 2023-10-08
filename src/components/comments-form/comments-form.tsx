@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import { useEffect, useState, ChangeEvent, FormEvent } from 'react';
 import Rating from '../rating/rating';
 import { useAppSelector, useAppDispatch } from '../../hooks';
@@ -6,6 +7,7 @@ import { RequestStatus } from '../../const';
 import { postCommentAction } from '../../store/api-actions';
 import { getDetails } from '../../store/details/selectors';
 import { getUser } from '../../store/auth/selectors';
+import styles from './comments-form.module.css';
 
 const DEFAULT_RATING = 5;
 
@@ -51,7 +53,7 @@ function CommentsForm(): JSX.Element {
 
   return (
     <form
-      className="reviews__form form"
+      className={cn('reviews__form form', styles.form)}
       action="#"
       method="post"
       onSubmit={onSubmit}
@@ -63,14 +65,14 @@ function CommentsForm(): JSX.Element {
       <textarea
         value={comment}
         onChange={onChangeComment}
-        className="reviews__textarea form__textarea"
+        className={cn('reviews__textarea form__textarea', styles.textarea)}
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
       />
       <div className="reviews__button-wrapper">
         {!isValid ? (
-          <p className="reviews__help">
+          <p className={cn('reviews__help', styles.message)}>
           To submit review please make sure to set{' '}
             <span className="reviews__star">rating</span> and describe
           your stay with at least{' '}

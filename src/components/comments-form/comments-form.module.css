@@ -1,0 +1,15 @@
+.textarea {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+@media(max-width: 1024px) {
+  .form {
+    padding-left: 0;
+    margin-right: 0;
+  }
+
+  .message {
+    width: 100%;
+  }
+}

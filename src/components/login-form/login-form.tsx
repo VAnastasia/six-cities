@@ -1,6 +1,8 @@
+import cn from 'classnames';
 import { useRef, FormEvent } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
+import styles from './login-form.module.css';
 
 function LoginForm(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -20,7 +22,7 @@ function LoginForm(): JSX.Element {
   };
   return (
     <form
-      className="login__form form"
+      className={cn('login__form form', styles.form)}
       action="#"
       method="post"
       onSubmit={handleSubmit}
