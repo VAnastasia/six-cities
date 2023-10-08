@@ -4,6 +4,7 @@ import { SortType } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setSortType } from '../../store/offers/offers';
 import { getSortType } from '../../store/offers/selectors';
+import styles from './sort.module.css';
 
 function Sort(): JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,7 +22,7 @@ function Sort(): JSX.Element {
 
   return (
     <form className="places__sorting" action="#" method="get">
-      <span className="places__sorting-caption">Sort by</span>
+      <span className={cn('places__sorting-caption', styles.sortCaption)}>Sort by</span>
       <span
         className="places__sorting-type"
         tabIndex={0}

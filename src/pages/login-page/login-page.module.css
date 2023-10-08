@@ -1,0 +1,35 @@
+.container {
+  max-width: 80%;
+  width: 80%;
+}
+
+.login::after {
+  width: 20vh;
+}
+
+@media(max-width: 1200px) {
+  .locations {
+    display: none;
+  }
+
+  .login {
+    margin: 0 auto;
+    padding-right: 0;
+    padding-left: 0;
+    width: 345px;
+  }
+
+  .login::after {
+    display: none;
+  }
+
+  .container {
+    padding: 0;
+  }
+
+  .page {
+    width: 80%;
+    background-image: none;
+  }
+}
+

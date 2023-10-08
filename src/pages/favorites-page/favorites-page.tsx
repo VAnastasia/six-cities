@@ -18,7 +18,7 @@ function FavoritesPage(): JSX.Element {
       <main className={cn('page__main page__main--favorites', styles.main)}>
         <FavoritesOffers offers={favoritesByCities} />
       </main>
-      <footer className="footer container">
+      <footer className={cn('footer container', styles.container)}>
         <a className="footer__logo-link" href="main.html">
           <img
             className="footer__logo"

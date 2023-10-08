@@ -1,0 +1,15 @@
+
+@media(max-width: 1200px) {
+  .favorite {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+  .image {
+    margin-bottom: 5px;
+  }
+
+  .image img {
+    width: 100%;
+  }
+}

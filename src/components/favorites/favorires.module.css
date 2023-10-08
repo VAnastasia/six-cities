@@ -1,0 +1,24 @@
+@media(max-width: 1200px) {
+  .container {
+    max-width: 80%;
+  }
+
+  .location {
+    flex-direction: column;
+  }
+
+  .city {
+    margin-bottom: 10px;
+  }
+
+  .places {
+    width: 275px;
+    margin: 0 auto;
+  }
+}
+
+@media(max-width: 600px) {
+  .container {
+    padding: 0;
+  }
+}

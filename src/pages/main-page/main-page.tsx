@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
+import cn from 'classnames';
 import Header from '../../components/header/header';
 import Tabs from '../../components/tabs/tabs';
 import OfferList from '../../components/offer-list/offer-list';
@@ -9,6 +10,7 @@ import { setSelectedOffer } from '../../store/offers/offers';
 import { resetDetailsOffer } from '../../store/details/details';
 import { getFetchingStatus } from '../../store/offers/selectors';
 import { RequestStatus } from '../../const';
+import styles from './main-page.module.css';
 
 function MainPage(): JSX.Element {
   const isLoading = useAppSelector(getFetchingStatus) === RequestStatus.Pending;
@@ -19,7 +21,7 @@ function MainPage(): JSX.Element {
   }, [dispatch]);
 
   return (
-    <div className="page page--gray page--main">
+    <div className={cn('page page--gray page--main', styles.page)}>
       {isLoading ? (
         <Loader />
       ) : (

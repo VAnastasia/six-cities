@@ -1,11 +1,13 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import cn from 'classnames';
 import Logo from '../logo/logo';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { AppRoute } from '../../const';
 import { logoutAction, fetchFavoritesAction } from '../../store/api-actions';
 import { getUser } from '../../store/auth/selectors';
 import { getFavorites } from '../../store/favorites/selectors';
+import styles from './header.module.css';
 
 function Header(): JSX.Element {
   const currentUser = useAppSelector(getUser);
@@ -25,8 +27,8 @@ function Header(): JSX.Element {
 
   return (
     <header className="header">
-      <div className="container">
-        <div className="header__wrapper">
+      <div className={cn('container', styles.container)}>
+        <div className={cn('header__wrapper', styles.wrapper)}>
           <div className="header__left">
             <Logo/>
           </div>
@@ -38,10 +40,10 @@ function Header(): JSX.Element {
                   to={AppRoute.Favorites}
                   className="header__nav-link header__nav-link--profile"
                 >
-                  <div className="header__avatar-wrapper user__avatar-wrapper">
+                  <div className={cn('header__avatar-wrapper user__avatar-wrapper', styles.avatar)}>
                     <img src={currentUser.avatarUrl} alt={currentUser.name} />
                   </div>
-                  <span className="header__user-name user__name">
+                  <span className={cn('header__user-name user__name', styles.username)}>
                     {currentUser?.email}
                   </span>
                   {currentUser && <span className="header__favorite-count">{favorites.length}</span>}

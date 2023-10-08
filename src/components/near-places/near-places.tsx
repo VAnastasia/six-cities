@@ -9,7 +9,7 @@ function NearPlaces(): JSX.Element {
   const offers = useAppSelector(getOffersNearby);
 
   return (
-    <div className="container">
+    <div className={cn('container', styles.container)}>
       <section className={cn('near-places places', styles.places)}>
         <h2 className="near-places__title">
           Other places in the neighbourhood

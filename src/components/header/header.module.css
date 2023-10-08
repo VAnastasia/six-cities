@@ -1,0 +1,23 @@
+.avatar {
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+@media(max-width: 1200px) {
+  .container {
+    max-width: 90%;
+    padding: 0;
+  }
+}
+
+@media(max-width: 768px) {
+  .wrapper {
+    padding-left: 0;
+  }
+}
+
+@media(max-width: 600px) {
+  .username {
+    display: none;
+  }
+}

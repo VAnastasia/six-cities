@@ -1,0 +1,41 @@
+.gallery::after,
+.gallery::before {
+  display: none;
+}
+
+.gallery {
+  width: 784px;
+  clip-path: polygon(4% 0, 100% 0%, 96% 100%, 0% 100%);
+}
+
+@media(max-width: 1200px) {
+  .container {
+    max-width: 80%;
+  }
+
+  .gallery {
+    width: 528px;
+    max-height: 100%;
+    clip-path: none;
+  }
+}
+
+@media(max-width: 768px) {
+  .container {
+    overflow: hidden;
+    overflow-x: auto;
+    padding: 0;
+    margin-bottom: 24px;
+  }
+  .gallery {
+    width: 1600px;
+    max-height: 200px;
+    flex-wrap: nowrap;
+    margin-bottom: 0;
+  }
+
+  .button {
+    right: 0;
+  }
+}
+

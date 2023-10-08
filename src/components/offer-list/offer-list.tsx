@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import OfferCard from '../../components/offer-card/offer-card';
 import Sort from '../../components/sort/sort';
 import Map from '../../components/map/map';
@@ -5,15 +6,16 @@ import { Offer } from '../../types/offer';
 import { CityMap, OfferCardType } from '../../const';
 import { getActiveCity, getOffersByFilterSort } from '../../store/offers/selectors';
 import { useAppSelector } from '../../hooks';
+import styles from './offer-list.module.css';
 
 function OfferList(): JSX.Element {
   const activeCity = useAppSelector(getActiveCity);
   const offersBySortAndCity: Offer[] = useAppSelector(getOffersByFilterSort);
 
   return (
-    <div className="cities">
-      <div className="cities__places-container container">
-        <section className="cities__places places">
+    <div className={cn('cities', styles.cities)}>
+      <div className={cn('cities__places-container container', styles.container)}>
+        <section className={cn('cities__places places', styles.places)}>
           <h2 className="visually-hidden">Places</h2>
           <b className="places__found">{offersBySortAndCity.length} places to stay in {activeCity}</b>
           <Sort />
@@ -27,7 +29,7 @@ function OfferList(): JSX.Element {
             ))}
           </div>
         </section>
-        <div className="cities__right-section">
+        <div className={cn('cities__right-section', styles.map)}>
           <Map offers={offersBySortAndCity} city={CityMap[activeCity]} />
         </div>
       </div>

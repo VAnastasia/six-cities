@@ -8,6 +8,7 @@ import { AppRoute } from '../../const';
 import { getUser } from '../../store/auth/selectors';
 import { statusFavoriteAction } from '../../store/api-actions';
 import { OfferCardType } from '../../const';
+import styles from './offer-card.module.css';
 
 type OfferProps = {
   offer: Offer;
@@ -51,7 +52,7 @@ function OfferCard({ offer, cardType = OfferCardType.Cities }: OfferProps): JSX.
 
   return (
     <article
-      className={cn(`${cardType}__card`, 'place-card')}
+      className={cn(`${cardType}__card`, 'place-card', {[styles.favorite]: cardType === OfferCardType.Favorites})}
       onMouseOver={onMouseOver}
       onMouseLeave={onMouseLeave}
     >
@@ -59,7 +60,7 @@ function OfferCard({ offer, cardType = OfferCardType.Cities }: OfferProps): JSX.
         <div className="place-card__mark">
           <span>Premium</span>
         </div>}
-      <div className={cn('place-card__image-wrapper', `${cardType}__image-wrapper`)}>
+      <div className={cn('place-card__image-wrapper', `${cardType}__image-wrapper`, {[styles.image]: cardType === OfferCardType.Favorites})}>
         <Link to={`${AppRoute.Offer}${id}`}>
           <img
             className="place-card__image"

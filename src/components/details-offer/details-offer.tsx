@@ -9,6 +9,7 @@ import { getUser } from '../../store/auth/selectors';
 import { statusFavoriteAction } from '../../store/api-actions';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import styles from './details-offer.module.css';
 
 function DetailsOffer(): JSX.Element {
   const navigate = useNavigate();
@@ -34,8 +35,8 @@ function DetailsOffer(): JSX.Element {
           {details?.title}
         </title>
       </Helmet>
-      <div className="offer__gallery-container container">
-        <div className="offer__gallery">
+      <div className={cn('offer__gallery-container container', styles.container)}>
+        <div className={cn('offer__gallery', styles.gallery)}>
           {details?.images?.map((image) => (
             <div className="offer__image-wrapper" key={image}>
               <img
@@ -47,7 +48,7 @@ function DetailsOffer(): JSX.Element {
           ))}
         </div>
       </div>
-      <div className="offer__container container">
+      <div className={cn('offer__container container', styles.container)}>
         <div className="offer__wrapper">
           {details?.isPremium && (
             <div className="offer__mark">
@@ -61,7 +62,8 @@ function DetailsOffer(): JSX.Element {
               className={cn(
                 'offer__bookmark-button',
                 'button',
-                {'offer__bookmark-button--active': details?.isFavorite}
+                {'offer__bookmark-button--active': details?.isFavorite},
+                styles.button
               )}
               type="button"
               onClick={onBookmarkClick}
